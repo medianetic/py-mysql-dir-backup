@@ -5,6 +5,8 @@ import sys
 import pathlib
 import zipfile
 
+from functions import zipdir                                    
+
 currentpath = pathlib.Path().resolve()
 currentpythonscript = __file__
 
@@ -47,23 +49,13 @@ dirExists = os.path.exists(target_dir)
 
 ## Check if dir exists
 if dirExists:
-    
     ## Set filename
     target_filename = input("\nFilename for zip archive (default (ENTER) for "+timestamp+".zip: ")
 
     if not target_filename:
         target_filename= timestamp+".zip"
 
-    ## ZIP
-
-    def zipdir(path, ziph):
-    # ziph is zipfile handle
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                ziph.write(os.path.join(root, file), 
-                            os.path.relpath(os.path.join(root, file), 
-                                            os.path.join(path, '..')))  
-
+    ## ZIP 
     zipf = zipfile.ZipFile(target_filename, 'w', zipfile.ZIP_DEFLATED)
     zipdir(target_dir, zipf)
     zipf.close()
@@ -72,6 +64,8 @@ if dirExists:
 
 else:
     sys.exit("Error: Directory does not exists")
+
+
 
 
 
