@@ -7,9 +7,6 @@ import zipfile
 
 from functions import zipdir                                    
 
-currentpath = pathlib.Path().resolve()
-currentpythonscript = __file__
-
 # timestamp stores the time in seconds
 timestamp = str(int(time.time()))
 
@@ -38,6 +35,10 @@ os.popen("mysqldump -h %s -P %s -u %s -p%s %s > %s.sql" % (HOST,PORT,DB_USER,DB_
 print("\n|| Database dumped to "+DB_DATABASE+"_"+timestamp+".sql || ")
 
 print("2. Directory Backup")
+
+currentpath = pathlib.Path().resolve()
+currentpythonscript = __file__
+
 print("\nYou are currently working in "+str(currentpath))
 
 target_dir = input("\nWhich directory you want to copy (default (ENTER) for current: ")
@@ -64,10 +65,3 @@ if dirExists:
 
 else:
     sys.exit("Error: Directory does not exists")
-
-
-
-
-
-    
-
